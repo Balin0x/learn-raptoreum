@@ -347,14 +347,32 @@ fi
 pause
 
 # Ask user if they want to bootstrap blockchain data
+# If the bootstrap download or checksum check fails, we no longer hard-exit: we offer
+# to fall back to a normal (non-bootstrapped) synchronization instead, since the node
+# can always sync from scratch, just slower.
+bootstrap_fallback_to_sync() {
+    local reason="$1"
+    log "${RED}${reason}${RESET}"
+    su - mcsmarty -c "rm -f /home/mcsmarty/.raptoreumcore/bootstrap.tar.xz"
+    read -p "${BOLD}${YELLOW}Would you like to continue with normal blockchain synchronization instead? (y/n): ${RESET}" FALLBACK_SYNC
+    if [[ "$FALLBACK_SYNC" == "y" || "$FALLBACK_SYNC" == "Y" ]]; then
+        log "Continuing without bootstrap. The node will synchronize normally, this will take longer."
+        BOOTSTRAP="n"
+    else
+        log "Exiting as per user choice. You can re-run the script or bootstrap manually later."
+        exit 1
+    fi
+}
+
 if [[ "$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" ]]; then
     log "Downloading bootstrap..."
     su - mcsmarty -c "wget -q --show-progress --progress=bar:force:noscroll https://bootstrap.raptoreum.com/bootstraps/bootstrap.tar.xz -O /home/mcsmarty/.raptoreumcore/bootstrap.tar.xz"
     if [ $? -ne 0 ]; then
-        log "Failed to download bootstrap. Exiting."
-        exit 1
+        bootstrap_fallback_to_sync "Failed to download bootstrap."
     fi
+fi
 
+if [[ "$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" ]]; then
     log "Checking bootstrap checksum..."
     BOOTSTRAP_CHECKSUM=$(su - mcsmarty -c "sha256sum /home/mcsmarty/.raptoreumcore/bootstrap.tar.xz | cut -d ' ' -f 1")
     EXPECTED_BOOTSTRAP_CHECKSUM=$(curl -s https://checksums.raptoreum.com/checksums/bootstrap-checksums.txt | grep bootstrap.tar.xz | awk '{print $1}')
@@ -367,8 +385,7 @@ if [[ "$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" ]]; then
         su - mcsmarty -c "pv /home/mcsmarty/.raptoreumcore/bootstrap.tar.xz | tar -xJf - -C /home/mcsmarty/.raptoreumcore/"
         su - mcsmarty -c "rm /home/mcsmarty/.raptoreumcore/bootstrap.tar.xz"
     else
-        log "Checksum mismatch for bootstrap.tar.xz. Exiting. Contact Charlie @charlie@raptoreum.com"
-        exit 1
+        bootstrap_fallback_to_sync "Checksum mismatch for bootstrap.tar.xz."
     fi
 fi
 pause
