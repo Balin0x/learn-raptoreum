@@ -1,6 +1,7 @@
 ## createmultisig
 Creates a multi-signature address with n signature of m keys required.
 It returns a json object with the address and redeemScript.
+
 ### Arguments
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
