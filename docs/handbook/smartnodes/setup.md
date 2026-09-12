@@ -3,7 +3,7 @@
 There are different ways you can setup your Smartnode:
 
 * Regular Setup: Setup as per this doc which has the option of a script or manual instructions at the bottom of this doc.
-* dk808 Script: Does the majority of the VPS setup for you, has healthcheck, bootstrap, and add as a service. Only tested on Ubuntu 20.
+* dk808 Script: Does the majority of the VPS setup for you, has healthcheck, bootstrap, and add as a service. Tested on Ubuntu 20.04 and 22.04.
 
 ## Smartnode Requirements
 * A synchronized RTM Corewallet on your PC "at home"
@@ -124,13 +124,13 @@ mkdir -p ~/SmartnodesInstallScript
 cd ~/SmartnodesInstallScript
 ```
 ```bash
-wget https://raw.githubusercontent.com/lorne-rtm/smartnode-installer/main/smartnode-installer.sh -O smartnode_setup.sh 
+wget https://raw.githubusercontent.com/Raptor3um/learn-raptoreum/refs/heads/main/docs/handbook/smartnodes/smartnode_setup_Ubuntu20and22.sh -O smartnode_setup_Ubuntu20and22.sh
 ```
 ```bash
-chmod +x smartnode_setup.sh
+chmod +x smartnode_setup_Ubuntu20and22.sh
 ```
 ```bash
-./smartnode_setup.sh
+./smartnode_setup_Ubuntu20and22.sh
 
 ``` 
 Note: If wget is not installed, enter the following command:
