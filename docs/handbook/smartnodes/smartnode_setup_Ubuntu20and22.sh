@@ -373,13 +373,23 @@ if [[ "$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" ]]; then
 fi
 
 if [[ "$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" ]]; then
-    log "Checking bootstrap checksum..."
+    log "Checking bootstrap checksum via bootstrap.raptoreum.com..."
+    check_command jq
+
+    # This endpoint checks the file hosted on bootstrap.raptoreum.com's own server against
+    # the blockchain-recorded asset, and returns the reference hash we should trust.
+    # It does NOT check our locally downloaded copy, so we still compare it ourselves below.
+    VERIFY_RESPONSE=$(curl -s -A "Mozilla/5.0" "https://bootstrap.raptoreum.com/verify?file=%2Fvar%2Fwww%2Fhtml%2Fbootstraps%2Fbootstrap.tar.xz")
+    VERIFY_SUCCESS=$(echo "$VERIFY_RESPONSE" | jq -r '.success // empty')
+    EXPECTED_BOOTSTRAP_CHECKSUM=$(echo "$VERIFY_RESPONSE" | jq -r '.hash // empty')
+
     BOOTSTRAP_CHECKSUM=$(su - mcsmarty -c "sha256sum /home/mcsmarty/.raptoreumcore/bootstrap.tar.xz | cut -d ' ' -f 1")
-    EXPECTED_BOOTSTRAP_CHECKSUM=$(curl -s https://checksums.raptoreum.com/checksums/bootstrap-checksums.txt | grep bootstrap.tar.xz | awk '{print $1}')
     log "Expected checksum for bootstrap.tar.xz: $EXPECTED_BOOTSTRAP_CHECKSUM"
     log "Actual checksum for bootstrap.tar.xz: $BOOTSTRAP_CHECKSUM"
 
-    if [[ "$BOOTSTRAP_CHECKSUM" == "$EXPECTED_BOOTSTRAP_CHECKSUM" ]]; then
+    if [[ "$VERIFY_SUCCESS" != "true" || -z "$EXPECTED_BOOTSTRAP_CHECKSUM" ]]; then
+        bootstrap_fallback_to_sync "Could not verify bootstrap.tar.xz against bootstrap.raptoreum.com (empty or failed response, possibly blocked by anti-bot protection)."
+    elif [[ "$BOOTSTRAP_CHECKSUM" == "$EXPECTED_BOOTSTRAP_CHECKSUM" ]]; then
         log "Checksum matches. Proceeding with bootstrap extraction..."
         log "Unpacking bootstrap files, this will take a while..."
         su - mcsmarty -c "pv /home/mcsmarty/.raptoreumcore/bootstrap.tar.xz | tar -xJf - -C /home/mcsmarty/.raptoreumcore/"
