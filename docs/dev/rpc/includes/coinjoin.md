@@ -7,3 +7,8 @@ Available commands:
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | command | string | True |  | The command to execute |
+### Examples
+```bash
+ raptoreum-cli coinjoin start
+```
+
