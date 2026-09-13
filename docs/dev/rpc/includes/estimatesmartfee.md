@@ -1,13 +1,13 @@
 ## estimatesmartfee
-
 Estimates the approximate fee per kilobyte needed for a transaction to begin
+confirmation within conf_target blocks if possible and return the number of blocks
+for which the estimate is valid.
 
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2 | `estimate_mode` | string | Optional | CONSERVATIVE | See CLI help for details |
-
+| 1 | conf_target | numeric | True |  | Confirmation target in blocks (1 - 1008) |
+| 2 | estimate_mode | string | False | CONSERVATIVE | The fee estimate mode. |
 
 ### Result
 ```json
@@ -24,10 +24,8 @@ Estimates the approximate fee per kilobyte needed for a transaction to begin
                     have been observed to make an estimate for any number of blocks.
 }
 ```
-
 ### Examples
 ```bash
  raptoreum-cli estimatesmartfee 6
 ```
 
----
