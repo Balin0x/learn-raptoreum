@@ -1,15 +1,12 @@
 ## createwallet
-
 Creates and loads a new wallet.
-
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2 | `disable_private_keys` | boolean | Optional | false) Disable the possibility of private keys (only watchonlys are possible in this mode | See CLI help for details |
-| 3 | `blank` | boolean | Optional | false | See CLI help for details |
-
-
+| 1 | wallet_name | string | True |  | The name for the new wallet. If this is a path, the wallet will be created at the path location. |
+| 2 | disable_private_keys | boolean | False | false | Disable the possibility of private keys (only watchonlys are possible in this mode). |
+| 3 | blank | boolean | False | false | Create a blank wallet. A blank wallet has no keys or HD seed. One can be set using sethdseed. |
+| 4 | passphrase | string |  |  | Encrypt the wallet with this passphrase. |
 ### Result
 ```json
 {                       (json object)
@@ -17,7 +14,6 @@ Creates and loads a new wallet.
   "warning" : "str"     (string) Warning message if wallet was not loaded cleanly.
 }
 ```
-
 ### Examples
 ```bash
  raptoreum-cli createwallet "testwallet"
@@ -26,4 +22,3 @@ Creates and loads a new wallet.
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createwallet", "params": ["testwallet"] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
