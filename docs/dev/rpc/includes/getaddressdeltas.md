@@ -1,14 +1,13 @@
 ## getaddressdeltas
-
 Returns all changes for an address (requires addressindex to be enabled).
 
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | `addresses` | json array | Optional | [] | See CLI help for details |
-| 2 | `asset` | string | Optional | RTM | See CLI help for details |
-
+| 1 | addresses | json array | False |  |  |
+| **Addresses** |  |  |  |  |  |
+| 1.1 | address | string | False |  | The base58check encoded address. |
+| 2 | asset | string | False | RTM | Get all changes for a particular asset instead of RTM. |
 
 ### Result
 ```json
@@ -34,4 +33,3 @@ Returns all changes for an address (requires addressindex to be enabled).
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressdeltas", "params": [{"addresses": ["XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
