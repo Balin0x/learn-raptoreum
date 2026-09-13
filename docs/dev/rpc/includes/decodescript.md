@@ -1,13 +1,9 @@
 ## decodescript
-
 Decode a hex-encoded script.
-
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-
-
+| 1 | hexstring | string | True |  | the hex-encoded script |
 ### Result
 ```json
 {                    (json object)
@@ -21,7 +17,6 @@ Decode a hex-encoded script.
   "p2sh" : "str"     (string) address of P2SH script wrapping this redeem script (not returned if the script is already a P2SH)
 }
 ```
-
 ### Examples
 ```bash
  raptoreum-cli decodescript "hexstring"
@@ -30,4 +25,3 @@ Decode a hex-encoded script.
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decodescript", "params": ["hexstring"] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
