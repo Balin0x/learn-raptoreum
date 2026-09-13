@@ -1,13 +1,18 @@
 ## deriveaddresses
-
 Derives one or more addresses corresponding to an output descriptor.
+Examples of output descriptors are:
+    pkh(<pubkey>)                        P2PKH outputs for the given pubkey
+    sh(multi(<n>,<pubkey>,<pubkey>,...)) P2SH-multisig outputs for the given threshold and pubkeys
+    raw(<hex script>)                    Outputs whose scriptPubKey equals the specified hex scripts
+In the above, <pubkey> either refers to a fixed public key in hexadecimal notation, or to an xpub/xprv optionally followed by one
+or more path elements separated by "/", where "h" represents a hardened child key.
+For more information on output descriptors, see the documentation in the doc/descriptors.md file.
 
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-
-
+| 1 | descriptor | string | True |  | The descriptor |
+| 2 | range | numeric or array | False |  | If a ranged descriptor is used, this specifies the beginning of the range (in [begin,end] notation) to derive. |
 ### Result
 ```json
 [           (json array)
@@ -15,13 +20,11 @@ Derives one or more addresses corresponding to an output descriptor.
   ...
 ]
 ```
-
 ### Examples
 ```bash
-First three receive addresses
+ First three receive addresses
 ```
 ```bash
  raptoreum-cli deriveaddresses "pkh([d34db33f/84h/0h/0h]xpub6DJ2dNUysrn5Vt36jH2KLBT2i1auw1tTSSomg8PhqNiUtx8QX2SvC9nrHu81fT41fvDUnhMjEzQgXnQjKEu3oaqMSzhSrHMxyyoEAmUHQbY/0/*)#cjjspncu" "[0,2]"
 ```
 
----
