@@ -1,13 +1,9 @@
 ## decoderawtransaction
-
 Return a JSON object representing the serialized, hex-encoded transaction.
-
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-
-
+| 1 | hexstring | string | True |  | The transaction hex string |
 ### Result
 ```json
 {                            (json object)
@@ -49,7 +45,6 @@ Return a JSON object representing the serialized, hex-encoded transaction.
   "extraPayload" : "hex"     (string, optional) Hex-encoded DIP2 extra payload data. Only present if it's a special TX
 }
 ```
-
 ### Examples
 ```bash
  raptoreum-cli decoderawtransaction "hexstring"
@@ -58,4 +53,3 @@ Return a JSON object representing the serialized, hex-encoded transaction.
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "decoderawtransaction", "params": ["hexstring"] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
