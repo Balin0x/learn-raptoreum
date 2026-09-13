@@ -1,11 +1,8 @@
 ## dumphdinfo
-
-{                                  (json object)
+Returns an object containing sensitive private info about this HD wallet.
 
 ### Arguments
-
-No arguments.
-
+None
 ### Result
 ```json
 {                                  (json object)
@@ -14,7 +11,6 @@ No arguments.
   "mnemonicpassphrase" : "str"     (string) The mnemonic passphrase for this HD wallet (bip39)
 }
 ```
-
 ### Examples
 ```bash
  raptoreum-cli dumphdinfo
@@ -23,4 +19,3 @@ No arguments.
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumphdinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
