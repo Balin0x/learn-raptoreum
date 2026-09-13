@@ -1,13 +1,13 @@
 ## dumpwallet
-
 Dumps all wallet keys in a human-readable format to a server-side file. This does not allow overwriting existing files.
+Imported scripts are included in the dumpfile too, their corresponding addresses will be added automatically by importwallet.
+Note that if your wallet contains keys which are not derived from your HD seed (e.g. imported keys), these are not covered by
+only backing up the seed itself, and must be backed up too (e.g. ensure you back up the whole dumpfile).
 
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-
-
+| 1 | filename | string | True |  | The filename with path (either absolute or relative to raptoreumd) |
 ### Result
 ```json
 {                        (json object)
@@ -16,7 +16,6 @@ Dumps all wallet keys in a human-readable format to a server-side file. This doe
   "warning" : "str"      (string) A warning about not sharing the wallet dump with anyone
 }
 ```
-
 ### Examples
 ```bash
  raptoreum-cli dumpwallet "test"
@@ -25,4 +24,3 @@ Dumps all wallet keys in a human-readable format to a server-side file. This doe
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
