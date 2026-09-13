@@ -1,13 +1,11 @@
 ## getaddednodeinfo
-
 Returns information about the given added node, or all added nodes
+(note that onetry addnodes are not listed here).
 
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | `node` | string | Optional | all nodes | See CLI help for details |
-
+| 1 | node | string | False | all nodes | If provided, return information about this specific node, otherwise all nodes are returned. |
 
 ### Result
 ```json
@@ -26,7 +24,6 @@ Returns information about the given added node, or all added nodes
   ...
 ]
 ```
-
 ### Examples
 ```bash
  raptoreum-cli getaddednodeinfo "192.168.0.201"
@@ -35,4 +32,3 @@ Returns information about the given added node, or all added nodes
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddednodeinfo", "params": ["192.168.0.201"] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
