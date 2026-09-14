@@ -1,6 +1,6 @@
 ## getblockchaininfo
 
-{                                         (json object)
+Returns a jason object containing various state info regarding blockchain processing.
 
 ### Arguments
 
