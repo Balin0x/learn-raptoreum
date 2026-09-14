@@ -1,13 +1,12 @@
 ## getaddresstxids
-
 Returns the txids for an address(es) (requires addressindex to be enabled).
 
 ### Arguments
-
 | Position | Name | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | `addresses` | json array | Optional | [] | See CLI help for details |
-
+| 1 | addresses | json array | False |  |  |
+| **Addresses** |  |  |  |  |  |
+| 1.1 | address | string | False |  | The base58check encoded address. |
 
 ### Result
 ```json
@@ -25,4 +24,3 @@ Returns the txids for an address(es) (requires addressindex to be enabled).
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddresstxids", "params": [{"addresses": ["XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg"]}] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
