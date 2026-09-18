@@ -1,10 +1,8 @@
 ## getzmqnotifications
-
 Returns information about the active ZeroMQ notifications.
 
 ### Arguments
-
-No arguments.
+None
 
 ### Result
 ```json
@@ -22,8 +20,8 @@ No arguments.
 ```bash
  raptoreum-cli getzmqnotifications
 ```
+
 ```bash
  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getzmqnotifications", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:10225/
 ```
 
----
