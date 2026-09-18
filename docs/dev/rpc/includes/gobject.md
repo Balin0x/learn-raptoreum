@@ -19,3 +19,7 @@ Available commands:
 ### Arguments
 None
 
+### Examples
+```bash
+ raptoreum-cli gobject check
+```
